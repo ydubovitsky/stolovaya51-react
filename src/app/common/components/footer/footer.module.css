@@ -16,6 +16,7 @@
 
 .logo-container {
   display: grid;
+  justify-items: center;
   gap: 50px;
 }
 
@@ -32,7 +33,15 @@
 
 .contacts-container {
   display: grid;
+  justify-items: center;
   gap: 20px;
+}
+
+.line-image-container {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100px;
 }
 
 .author-container {

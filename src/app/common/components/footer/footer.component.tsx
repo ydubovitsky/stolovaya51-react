@@ -1,4 +1,5 @@
 import styles from "./footer.module.css";
+import imageSrc from "./images/jimmy-dean-Yn0l7uwBrpw-unsplash.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkedAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,10 +25,14 @@ const FooterComponent = () => {
           <p>123-45-67</p>
         </div>
       </div>
+      <div
+        className={styles["line-image-container"]}
+        style={{ backgroundImage: `url(${imageSrc})` }}
+      ></div>
       <div className={styles["author-container"]}>
         <p>
-          © 2023 - {new Date().getFullYear()} All Rights Reserved. Created By
-          Yury Dubovitsky
+          © 2023 - {new Date().getFullYear()} All Rights Reserved. Created By 
+          <a href="http://y-dubovitsky.ru"> Yury Dubovitsky</a>
         </p>
       </div>
     </div>
