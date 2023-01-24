@@ -1,0 +1,68 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.meal-list-container {
+  display: grid;
+  padding: 5%;
+  grid-template-rows: min-content max-content;
+  align-items: top;
+  justify-items: center;
+  border-right: 1px solid silver;
+}
+
+.meal-list {
+  width: 80%;
+  overflow-x: hidden;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.meal-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.meal-list::-webkit-scrollbar-track {
+  background-color: #E3E7F0;
+  border-radius: 5px;
+}
+
+.meal-list::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.meal-list-item {
+  display: grid;
+  width: 100%;
+  align-items: center;
+  grid-template-columns: 5fr 1fr 1fr;
+  padding: 2px;
+  border-bottom: 1px solid rgb(233, 233, 233);
+}
+
+.meal-list-item svg {
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.meal-list-item svg:hover {
+  color: red;
+}
+
+.create-new-meal-form {
+  display: grid;
+  gap: 10px;
+  align-items: center;
+  padding: 5%;
+}
+
+.create-new-meal-form input,
+.create-new-meal-form textarea {
+  min-height: 2rem;
+}
+
+.create-new-meal-form textarea {
+  min-height: 200px;
+}

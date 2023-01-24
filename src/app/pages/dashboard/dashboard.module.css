@@ -1,0 +1,21 @@
+.container {
+  display: grid;
+  background-color: white;
+  border-bottom: 1px solid rgb(224, 224, 224);
+  padding: 5%;
+}
+
+.dashboard-container {
+  display: grid;
+  box-shadow: 1px 1px 1px 1px silver;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.buttons-container {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  background-color: whitesmoke;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 100px));
+}
