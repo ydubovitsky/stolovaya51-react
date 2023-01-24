@@ -11,3 +11,6 @@ https://fontawesome.com/docs/web/use-with/react/
 
 ### Stylelint (npx stylelint "**/*.{css,scss}" --fix)
 https://github.com/stormwarning/stylelint-config-recess-order
+
+### AXIOS + TS
+https://rapidapi.com/guides/call-apis-using-axios-in-typescript
