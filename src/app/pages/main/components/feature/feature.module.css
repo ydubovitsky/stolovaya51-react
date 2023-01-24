@@ -1,0 +1,33 @@
+.container {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  padding: 5%;
+  background-color: white;
+  border-bottom: 1px solid rgb(240, 240, 240);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  width: 100%;
+}
+
+.feature-container {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.feature-icon-container {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  width: 80px;
+  height: 80px;
+  background-color: #E3E7F0;
+  border-radius: 50%;
+}

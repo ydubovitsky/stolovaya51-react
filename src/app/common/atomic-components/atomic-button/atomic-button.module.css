@@ -1,0 +1,13 @@
+.container {
+  padding: 10px 20px;
+  font-family: 'Spice Rice', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bold;
+  background-color: #CFD3DB;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px 2px silver;
+  transition: 0.3s ease;
+}
+
+.container:active {
+  transform: scale(0.98);
+}

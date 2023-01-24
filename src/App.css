@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'Pomidorko_cyr';
+  src: local('Pomidorko_cyr'), url(./app/fonts/Pomidorko_cyr.ttf) format('truetype');
+}
+
 .App {
   text-align: center;
 }
@@ -14,11 +19,11 @@
 }
 
 .App-header {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 100vh;
   font-size: calc(10px + 2vmin);
 }
 
