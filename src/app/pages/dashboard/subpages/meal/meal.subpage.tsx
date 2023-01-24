@@ -15,10 +15,12 @@ import { useAppSelector } from "../../../../../redux/hooks";
 const MealSubpage: React.FC = () => {
   const dispatch = useDispatch();
   const [meal, setMeal] = useState<MealItemInterface>();
-  const mealsItemArray = useAppSelector(mealsItemArraySelector);
+  const mealsItemArray: MealItemInterface[] = useAppSelector(mealsItemArraySelector);
 
-  useEffect(() => {
-    dispatch(getAllMealsAsync());
+  useEffect((): void => {
+    if (mealsItemArray.length === 0) {
+      dispatch(getAllMealsAsync());
+    }
   }, []);
 
   /**
