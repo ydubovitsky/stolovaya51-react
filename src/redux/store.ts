@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../redux/features/counter/counterSlice';
+import MealMiddleware from './middleware/meal.middleware';
+import mealReducer from './meal/meal.slice';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    meal: mealReducer
   },
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(MealMiddleware)
 });
 
 export type AppDispatch = typeof store.dispatch;
