@@ -1,10 +1,16 @@
+import { useEffect } from "react";
 import AtomicButtonComponent from "../../common/atomic-components/atomic-button/atomic-button.component";
 import styles from "./dashboard.module.css";
 import { Outlet, useNavigate } from "react-router-dom";
-const Fade = require("react-reveal/Fade");
 
 const DashboardPage: React.FC = () => {
   const navigate = useNavigate();
+
+  //! Улучшить, найти лучшее решение 
+  //! Редирект по умолчанию
+  useEffect(() => {
+    navigate("menu");
+  }, [])
 
   const navigateToMenuPage = (): void => {
     navigate("/dashboard/menu");
