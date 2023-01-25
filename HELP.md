@@ -14,3 +14,6 @@ https://github.com/stormwarning/stylelint-config-recess-order
 
 ### AXIOS + TS
 https://rapidapi.com/guides/call-apis-using-axios-in-typescript
+
+### React-select
+https://react-select.com/home
