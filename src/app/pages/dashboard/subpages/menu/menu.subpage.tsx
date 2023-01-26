@@ -9,33 +9,83 @@ import {
   getAllMealsAsync,
   mealsItemArraySelector,
 } from "../../../../../redux/meal/meal.slice";
+import {
+  createNewMenuAsync
+} from "../../../../../redux/menu/menu.slice";
 import { useAppSelector } from "../../../../../redux/hooks";
 import { useState } from "react";
+import { current } from "@reduxjs/toolkit";
 
-interface MealTimeInterface {
-  name: string | undefined;
+interface MenuInterface {
+  date?: Date;
+  menuListEntities: MenuListEntityInterface;
+}
+
+interface MenuListEntityInterface {
+  mealTime?: string | any;
+  [x: string]: any;
 }
 
 interface MenuItemInterface {
-  date: Date;
-  mealTime: MealTimeInterface | undefined;
-  mealItem: MealItemInterface | undefined;
-  cost: number | undefined;
-  portionSize: number | undefined;
-  description: string | undefined;
+  date?: Date;
+  mealTime: string;
+  mealItem?: MealItemInterface;
+  cost?: number;
+  portionSize?: number;
+  description?: string;
 }
 
 const MenuSubpage: React.FC = () => {
+  const dispatch = useDispatch();
   const mealsItemArray: MealItemInterface[] = useAppSelector(
     mealsItemArraySelector
   );
 
   //!TODO Улучшить это
-  const [menuItem, setMenuItem] = useState<object | any>();
+  const [menuItem, setMenuItem] = useState<MenuItemInterface>({ mealTime: "" });
+  const [menu, setMenu] = useState<MenuInterface>({ menuListEntities: {} });
+
+  const addMenuListItemToMenuHandler = () => {
+    const spreadMenuListEntitiesIfExists = (): MenuListEntityInterface => {
+      if (menu.menuListEntities[menuItem.mealTime] != undefined) {
+        return [...menu.menuListEntities[menuItem.mealTime], menuItem];
+      } else {
+        return [menuItem];
+      }
+    };
+
+    setMenu({
+      ...menu,
+      date: menuItem.date,
+      menuListEntities: {
+        ...menu.menuListEntities,
+        [menuItem.mealTime]: spreadMenuListEntitiesIfExists(),
+      },
+    });
+  };
+
+  const deleteMenuItemFromStateHandler = (
+    mealTime: string,
+    id: number | undefined
+  ): void => {
+    if (id !== undefined) {
+      const mealTimeArray = menu.menuListEntities[mealTime].filter(
+        (item: any) => item.mealItem.id !== id
+      );
+      setMenu({
+        ...menu,
+        date: menuItem.date,
+        menuListEntities: {
+          ...menu.menuListEntities,
+          [mealTime]: [...mealTimeArray],
+        },
+      });
+    }
+  };
 
   const onMenuItemChangeHandler = (
     name: string,
-    arg: MealTimeInterface | MealItemInterface | Date | number | string
+    arg: MealItemInterface | Date | number | string
   ): void => {
     setMenuItem({
       ...menuItem,
@@ -63,11 +113,7 @@ const MenuSubpage: React.FC = () => {
       {Array.of("Завтрак", "Ланч", "Напитки", "Полуфабрикаты", "Остальное").map(
         (mealTime) => (
           <option
-            onClick={() =>
-              onMenuItemChangeHandler("mealTime", {
-                name: mealTime,
-              } as MealTimeInterface)
-            }
+            onClick={() => onMenuItemChangeHandler("mealTime", mealTime)}
             value={mealTime}
           >
             {mealTime}
@@ -78,37 +124,41 @@ const MenuSubpage: React.FC = () => {
   );
 
   console.log(menuItem);
+  console.log(menu);
+
+  const showMenuListElements = () =>
+    Object.keys(menu.menuListEntities).map((mealTimeName) => (
+      <div className={styles["menu-list-item"]}>
+        <h1>{mealTimeName}</h1>
+        {/* //!TODO Исправить, any -> неверный тип */}
+        {menu.menuListEntities[mealTimeName].map((item: any) => (
+          <div className={styles["meal-list-item"]}>
+            <p>{item.mealItem !== undefined ? item.mealItem.name : ""}</p>
+            <p>{item.cost} р.</p>
+            <p>{item.weight} гр.</p>
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              onClick={() =>
+                deleteMenuItemFromStateHandler(mealTimeName, item.mealItem?.id)
+              }
+            />
+          </div>
+        ))}
+      </div>
+    ));
 
   return (
     <div className={styles["container"]}>
       <div className={styles["menu-list-container"]}>
         <h1>Меню</h1>
-        <div className={styles["menu-list"]}>
-          <div className={styles["menu-list-item"]}>
-            <h1>Завтрак</h1>
-            <div className={styles["meal-list-item"]}>
-              <p>Суп </p>
-              <FontAwesomeIcon icon={faEdit} />
-              <FontAwesomeIcon icon={faTrashCan} />
-            </div>
-            <div className={styles["meal-list-item"]}>
-              <p>Жаркое с грибами </p>
-              <FontAwesomeIcon icon={faEdit} />
-              <FontAwesomeIcon icon={faTrashCan} />
-            </div>
-          </div>
-          <div className={styles["menu-item"]}>
-            <h1>Обед</h1>
-            <div className={styles["meal-list-item"]}>
-              <p>Суп </p>
-              <FontAwesomeIcon icon={faEdit} />
-              <FontAwesomeIcon icon={faTrashCan} />
-            </div>
-          </div>
-        </div>
+        <div className={styles["menu-list"]}>{showMenuListElements()}</div>
         <h3>
           Вы можете удалить или скорректировать любое блюдо из этого списка
         </h3>
+        <AtomicButtonComponent
+          name="Сохранить меню"
+          clickFunction={() => dispatch(createNewMenuAsync(menu))}
+        />
       </div>
       <div className={styles["create-new-daily-menu-form"]}>
         <label htmlFor="date">На какое число составляем меню?</label>
@@ -131,8 +181,8 @@ const MenuSubpage: React.FC = () => {
         <label htmlFor="cost">Цена в рублях</label>
         <input
           type="number"
-          name="calories"
-          onChange={(e) => onMenuItemChangeHandler("calories", e.target.value)}
+          name="cost"
+          onChange={(e) => onMenuItemChangeHandler("cost", e.target.value)}
           placeholder="500"
         />
 
@@ -154,6 +204,7 @@ const MenuSubpage: React.FC = () => {
         ></textarea>
         <AtomicButtonComponent
           name="Добавить новое блюдо"
+          clickFunction={addMenuListItemToMenuHandler}
         />
       </div>
     </div>

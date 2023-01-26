@@ -8,13 +8,11 @@
   display: grid;
   padding: 5%;
   grid-template-rows: min-content max-content;
-  align-items: top;
-  justify-items: center;
+  align-items: end;
   border-right: 1px solid silver;
 }
 
 .menu-list {
-  width: 80%;
   overflow-x: hidden;
   max-height: 500px;
   overflow-y: auto;
@@ -37,7 +35,7 @@
   display: grid;
   width: 100%;
   align-items: center;
-  grid-template-columns: 5fr 1fr 1fr;
+  grid-template-columns: 5fr 1fr 1fr 1fr;
   padding: 2px;
   border-bottom: 1px solid rgb(233, 233, 233);
 }
