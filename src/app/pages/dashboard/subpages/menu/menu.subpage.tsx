@@ -11,17 +11,17 @@ import {
 import { createNewMenuAsync } from "../../../../../redux/menu/menu.slice";
 import AtomicButtonComponent from "../../../../common/atomic-components/atomic-button/atomic-button.component";
 import styles from "./menu.module.css";
-interface MenuInterface {
+export interface MenuInterface {
   date?: Date;
   menuEntities: MenuEntityInterface[];
 }
 
-interface MenuEntityInterface {
+export interface MenuEntityInterface {
   name: string;
   menuItems: MenuItemInterface[];
 }
 
-interface MenuItemInterface {
+export interface MenuItemInterface {
   date?: Date;
   mealTime?: string;
   mealItem?: MealItemInterface;

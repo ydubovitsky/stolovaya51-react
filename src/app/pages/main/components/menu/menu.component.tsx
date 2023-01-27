@@ -2,120 +2,45 @@ import styles from "./menu.module.css";
 import BackgroundImageArray from "./images";
 import TitleComponent from "../../../../common/atomic-components/title/title.component";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { getMenuByCustomDateAsync } from "../../../../../redux/menu/menu.slice";
+import { convertDateToCustomDate } from "../../../../utils/date.util";
+import { useAppSelector } from "../../../../../redux/hooks";
+import { menuArraySelector } from "../../../../../redux/menu/menu.slice";
+import { MenuInterface } from "../../../dashboard/subpages/menu/menu.subpage";
 const Fade = require("react-reveal/Fade");
 
-interface MenuInterface {
-  mealTimes: Array<{
-    name: string;
-    meals: MealInterface[];
-  }>;
-}
-
-interface MealInterface {
-  name: string;
-  cost: number;
-  weight: number;
-}
-
-const mondayMenu: MenuInterface = {
-  mealTimes: [
-    {
-      name: "Завтрак",
-      meals: [
-        {
-          name: "Суп",
-          cost: 100,
-          weight: 200,
-        },
-        {
-          name: "Сырники",
-          cost: 100,
-          weight: 200,
-        },
-        {
-          name: "Вареники",
-          cost: 100,
-          weight: 200,
-        },
-      ],
-    },
-    {
-      name: "Ланч",
-      meals: [
-        {
-          name: "Суп",
-          cost: 100,
-          weight: 200,
-        },
-        {
-          name: "Сырники",
-          cost: 100,
-          weight: 200,
-        },
-        {
-          name: "Вареники",
-          cost: 100,
-          weight: 200,
-        },
-      ],
-    },
-    {
-      name: "Остальное",
-      meals: [
-        {
-          name: "Суп",
-          cost: 100,
-          weight: 200,
-        },
-        {
-          name: "Сырники",
-          cost: 100,
-          weight: 200,
-        },
-        {
-          name: "Вареники",
-          cost: 100,
-          weight: 200,
-        },
-        {
-          name: "Суп",
-          cost: 100,
-          weight: 200,
-        },
-        {
-          name: "Сырники",
-          cost: 100,
-          weight: 200,
-        },
-        {
-          name: "Вареники",
-          cost: 100,
-          weight: 200,
-        },
-      ],
-    },
-  ],
-};
-
+/**
+ * MenuComponent
+ * @returns
+ */
 const MenuComponent: React.FC = () => {
+  const dispatch = useDispatch();
   const [backgroundImageIndex, setBackgroundImageIndex] = useState(0);
+  const menu: MenuInterface[] = useAppSelector(menuArraySelector);
 
-  const showMenuByDayElements = () => {
-    return mondayMenu.mealTimes.map((mealTime) => (
-      <div className={styles["meal-time-container"]}>
-        <h1>{mealTime.name}</h1>
-        <div className={styles["meals-container"]}>
-          {mealTime.meals.map((meal) => (
-            <div className={styles["meal-item-detail"]}>
-              <p>{meal.name}</p>
-              <p>{meal.cost} р.</p>
-              <p>{meal.weight} гр.</p>
-            </div>
-          ))}
+  useEffect(() => {
+    dispatch(getMenuByCustomDateAsync(convertDateToCustomDate(new Date())));
+  }, []);
+
+  const showMenuByDayElements = (): JSX.Element => (
+    <div>
+      {menu[0]?.menuEntities.map((entity) => (
+        <div className={styles["meal-time-container"]}>
+          {entity.name}
+          <div className={styles["meals-container"]}>
+            {entity.menuItems.map((menuItem) => (
+              <div className={styles["meal-item-detail"]}>
+                <p>{menuItem.mealItem?.name}</p>
+                <p>{menuItem.cost}</p>
+                <p>{menuItem.portion}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    ));
-  };
+      ))}
+    </div>
+  );
 
   const calculateCurrentDate = (): string =>
     "Меню на " + new Date().toLocaleString().split(",")[0];

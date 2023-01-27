@@ -1,25 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchData } from "../../services/api-call.service";
 import { RootState } from "../store";
+import { CustomDateInterface } from "../../app/utils/date.util";
+import { MenuInterface } from "../../app/pages/dashboard/subpages/menu/menu.subpage";
 
 // ------------------------------------ Types ------------------------------------
 
-// export interface MealItemInterface {
-//   id?: number,
-//   name?: string;
-//   calories?: number;
-//   description?: string;
-// }
-
-// export interface MealStateInterface {
-//   mealsItemArray: MealItemInterface[];
-//   status: "idle" | "loading" | "loaded" | "failed";
-// }
-
-const initialState: any = {
-  menuItemArray: [],
-  status: "idle",
-};
+interface MenuStateInterface {
+  menuArray: MenuInterface[];
+  status: string;
+}
 
 // ------------------------------------ AsyncThunk ------------------------------------
 
@@ -37,18 +27,39 @@ export const createNewMenuAsync: any = createAsyncThunk(
   }
 );
 
-// export const getAllMealsAsync: any = createAsyncThunk(
-//   "meal/get-all-meals",
-//   async (meal) => {
-//     const response = await fetchData({
-//       method: "GET",
-//       url: `http://localhost:8080/api/v1/meal/all`,
-//       responseType: "json",
-//     });
-//     const result = (await response) as any;
-//     return result;
-//   }
-// );
+export const getMenuByCustomDateAsync: any = createAsyncThunk(
+  "meal/get-by-custom-date",
+  async (date: CustomDateInterface) => {
+    const response = await fetchData({
+      method: "GET",
+      url: `http://localhost:8080/api/v1/menu?day=${date.day}&month=${date.month}&year=${date.year}`,
+      responseType: "json",
+    });
+    const result = (await response) as any;
+    return result;
+  }
+);
+
+export const getMenuByDateAsync: any = createAsyncThunk(
+  "meal/get-by-date",
+  async (date: Date) => {
+    const response = await fetchData({
+      method: "GET",
+      //! date.toLocaleDateString() => 2023.01.05
+      url: `http://localhost:8080/api/v1/menu?date=${date.toLocaleDateString()}`,
+      responseType: "json",
+    });
+    const result = (await response) as any;
+    return result;
+  }
+);
+
+// ------------------------------------ InitState ------------------------------------
+
+const initialState: MenuStateInterface = {
+  menuArray: [],
+  status: "idle",
+};
 
 // ------------------------------------ Slice ------------------------------------
 
@@ -67,23 +78,23 @@ export const menuSlice = createSlice({
       .addCase(createNewMenuAsync.rejected, (state) => {
         state.status = "failed";
       })
-      //!getAllMealsAsync
-      // .addCase(getAllMealsAsync.pending, (state) => {
-      //   state.status = "loading";
-      // })
-      // .addCase(getAllMealsAsync.fulfilled, (state, action) => {
-      //   state.mealsItemArray = action.payload;
-      //   state.status = "loaded";
-      // })
-      // .addCase(getAllMealsAsync.rejected, (state) => {
-      //   state.status = "failed";
-      // });
+      //!getMenuByCustomDateAsync
+      .addCase(getMenuByCustomDateAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getMenuByCustomDateAsync.fulfilled, (state, action) => {
+        state.menuArray = action.payload;
+        state.status = "loaded";
+      })
+      .addCase(getMenuByCustomDateAsync.rejected, (state) => {
+        state.status = "failed";
+      });
   },
 });
 
 // ------------------------------------ Selectors ------------------------------------
 
-// export const mealsItemArraySelector = (state: RootState) => state.meal.mealsItemArray;
+export const menuArraySelector = (state: RootState) : MenuInterface[] => state.menu.menuArray;
 
 // ------------------------------------ Default import ------------------------------------
 
