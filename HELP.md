@@ -17,3 +17,7 @@ https://rapidapi.com/guides/call-apis-using-axios-in-typescript
 
 ### React-select
 https://react-select.com/home
+
+### Immer (Use Immer with useState Hook to Handle the State of your React app)
+https://immerjs.github.io/immer/
+https://dev.to/franciscomendes10866/use-immer-to-better-handle-the-state-of-your-react-app-489p
