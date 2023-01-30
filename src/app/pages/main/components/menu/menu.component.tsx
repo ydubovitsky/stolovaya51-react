@@ -30,7 +30,7 @@ const MenuComponent: React.FC = () => {
 
   const showMenuByDayElements = (): JSX.Element => (
     <>
-      {menu.menuEntities.map((entity) => (
+      {menu.menuEntities?.map((entity) => (
         <div className={styles["meal-time-container"]}>
           <h1>{entity.name}</h1>
           <div className={styles["meals-container"]}>
