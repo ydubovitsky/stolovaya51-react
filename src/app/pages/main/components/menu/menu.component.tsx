@@ -1,12 +1,12 @@
 import styles from "./menu.module.css";
 import BackgroundImageArray from "./images";
 import TitleComponent from "../../../../common/atomic-components/title/title.component";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getMenuByCustomDateAsync } from "../../../../../redux/menu/menu.slice";
 import { convertDateToCustomDate } from "../../../../utils/date.util";
 import { useAppSelector } from "../../../../../redux/hooks";
-import { menuArraySelector } from "../../../../../redux/menu/menu.slice";
+import { menuSelector } from "../../../../../redux/menu/menu.slice";
 import { MenuInterface } from "../../../dashboard/subpages/menu/menu.subpage";
 const Fade = require("react-reveal/Fade");
 
@@ -16,18 +16,23 @@ const Fade = require("react-reveal/Fade");
  */
 const MenuComponent: React.FC = () => {
   const dispatch = useDispatch();
+  const [date, setDate] = useState(new Date());
   const [backgroundImageIndex, setBackgroundImageIndex] = useState(0);
-  const menu: MenuInterface[] = useAppSelector(menuArraySelector);
+  const menu: MenuInterface = useAppSelector(menuSelector);
 
   useEffect(() => {
-    dispatch(getMenuByCustomDateAsync(convertDateToCustomDate(new Date())));
-  }, []);
+    dispatch(getMenuByCustomDateAsync(convertDateToCustomDate(date)));
+  }, [date]);
+
+  const onDateInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setDate(new Date(e.target.value));
+  };
 
   const showMenuByDayElements = (): JSX.Element => (
-    <div>
-      {menu[0]?.menuEntities.map((entity) => (
+    <>
+      {menu.menuEntities.map((entity) => (
         <div className={styles["meal-time-container"]}>
-          {entity.name}
+          <h1>{entity.name}</h1>
           <div className={styles["meals-container"]}>
             {entity.menuItems.map((menuItem) => (
               <div className={styles["meal-item-detail"]}>
@@ -39,16 +44,20 @@ const MenuComponent: React.FC = () => {
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
-
-  const calculateCurrentDate = (): string =>
-    "Меню на " + new Date().toLocaleString().split(",")[0];
 
   return (
     <div className={styles["container"]}>
       <div className={styles["container-title"]}>
-        <TitleComponent name={calculateCurrentDate()} />
+        <TitleComponent name="Меню на" />
+        <input
+          type="date"
+          name="date"
+          onChange={(e) => onDateInputChangeHandler(e)}
+          defaultValue={new Date().toISOString().split("T")[0]}
+        />
+        <TitleComponent name="число" />
       </div>
       <Fade cascade bottom>
         <div

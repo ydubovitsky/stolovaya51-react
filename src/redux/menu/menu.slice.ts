@@ -7,7 +7,7 @@ import { MenuInterface } from "../../app/pages/dashboard/subpages/menu/menu.subp
 // ------------------------------------ Types ------------------------------------
 
 interface MenuStateInterface {
-  menuArray: MenuInterface[];
+  menu: MenuInterface;
   status: string;
 }
 
@@ -57,7 +57,9 @@ export const getMenuByDateAsync: any = createAsyncThunk(
 // ------------------------------------ InitState ------------------------------------
 
 const initialState: MenuStateInterface = {
-  menuArray: [],
+  menu: {
+   menuEntities: [] 
+  },
   status: "idle",
 };
 
@@ -83,7 +85,7 @@ export const menuSlice = createSlice({
         state.status = "loading";
       })
       .addCase(getMenuByCustomDateAsync.fulfilled, (state, action) => {
-        state.menuArray = action.payload;
+        state.menu = action.payload;
         state.status = "loaded";
       })
       .addCase(getMenuByCustomDateAsync.rejected, (state) => {
@@ -94,7 +96,7 @@ export const menuSlice = createSlice({
 
 // ------------------------------------ Selectors ------------------------------------
 
-export const menuArraySelector = (state: RootState) : MenuInterface[] => state.menu.menuArray;
+export const menuSelector = (state: RootState) : MenuInterface => state.menu.menu;
 
 // ------------------------------------ Default import ------------------------------------
 

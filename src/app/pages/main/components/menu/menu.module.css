@@ -6,6 +6,20 @@
   background-color: white;
 }
 
+.container-title {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.container-title input[type="date"] {
+  cursor: pointer;
+  font-size: 2.5rem;
+  font-family: 'Pomidorko_cyr';
+  border: none;
+}
+
 .menu-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -54,6 +68,10 @@
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: 10px;
+}
+
+.meal-item-detail p {
+  padding: 5px 10px;
 }
 
 .meal-item-detail p:not(:last-child) {
