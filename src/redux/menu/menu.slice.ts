@@ -3,6 +3,7 @@ import { fetchData } from "../../services/api-call.service";
 import { RootState } from "../store";
 import { CustomDateInterface } from "../../app/utils/date.util";
 import { MenuInterface } from "../../app/pages/dashboard/subpages/menu/menu.subpage";
+import { BACKEND_URL } from "../../services/constants";
 
 // ------------------------------------ Types ------------------------------------
 
@@ -13,44 +14,49 @@ interface MenuStateInterface {
 
 // ------------------------------------ AsyncThunk ------------------------------------
 
-export const createNewMenuAsync: any = createAsyncThunk(
-  "menu/create",
-  async (menu) => {
-    const response = await fetchData({
-      method: "POST",
-      url: `http://localhost:8080/api/v1/menu`,
-      data: menu,
-      responseType: "json",
-    });
-    const result = (await response) as any;
-    return result;
-  }
-);
+export const createNewMenuAsync = createAsyncThunk<
+  MenuInterface,
+  MenuInterface,
+  { state: RootState }
+>("menu/create", async (menu, { getState }) => {
+  const state: RootState = getState();
+  const token = state.user.userEntity.token;
 
-export const getMenuByCustomDateAsync: any = createAsyncThunk(
-  "meal/get-by-custom-date",
-  async (date: CustomDateInterface) => {
-    const response = await fetchData({
-      method: "GET",
-      url: `http://localhost:8080/api/v1/menu?day=${date.day}&month=${date.month}&year=${date.year}`,
-      responseType: "json",
-    });
-    const result = (await response) as any;
-    return result;
-  }
-);
+  const responseData = await fetchData({
+    method: "POST",
+    url: `${BACKEND_URL}/api/v1/menu`,
+    data: menu,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: token,
+    },
+  });
+  return responseData;
+});
 
-export const getMenuByDateAsync: any = createAsyncThunk(
+export const getMenuByCustomDateAsync = createAsyncThunk<
+  MenuInterface,
+  CustomDateInterface
+>("meal/get-by-custom-date", async (date: CustomDateInterface) => {
+  const responseData = await fetchData({
+    method: "GET",
+    url: `${BACKEND_URL}/api/v1/menu?day=${date.day}&month=${date.month}&year=${date.year}`,
+    responseType: "json",
+  });
+  return responseData;
+});
+
+export const getMenuByDateAsync = createAsyncThunk<MenuInterface, Date>(
   "meal/get-by-date",
   async (date: Date) => {
-    const response = await fetchData({
+    const responseData = await fetchData({
       method: "GET",
       //! date.toLocaleDateString() => 2023.01.05
-      url: `http://localhost:8080/api/v1/menu?date=${date.toLocaleDateString()}`,
+      url: `${BACKEND_URL}/api/v1/menu?date=${date.toLocaleDateString()}`,
       responseType: "json",
     });
-    const result = (await response) as any;
-    return result;
+    return responseData;
   }
 );
 
@@ -58,7 +64,7 @@ export const getMenuByDateAsync: any = createAsyncThunk(
 
 const initialState: MenuStateInterface = {
   menu: {
-   menuEntities: [] 
+    menuEntities: [],
   },
   status: "idle",
 };
@@ -96,7 +102,8 @@ export const menuSlice = createSlice({
 
 // ------------------------------------ Selectors ------------------------------------
 
-export const menuSelector = (state: RootState) : MenuInterface => state.menu.menu;
+export const menuSelector = (state: RootState): MenuInterface =>
+  state.menu.menu;
 
 // ------------------------------------ Default import ------------------------------------
 

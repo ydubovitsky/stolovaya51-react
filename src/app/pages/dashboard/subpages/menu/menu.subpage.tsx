@@ -3,6 +3,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../../redux/store";
 import { useAppSelector } from "../../../../../redux/hooks";
 import {
   MealItemInterface,
@@ -45,7 +46,7 @@ const menuInitState: MenuInterface = {
  * @returns 
  */
 const MenuSubpage: React.FC = (): JSX.Element => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const mealsItemArray: MealItemInterface[] = useAppSelector(
     mealsItemArraySelector
   );
@@ -114,6 +115,7 @@ const MenuSubpage: React.FC = (): JSX.Element => {
       {mealsItemArray.map((mealItem) => (
         <option
           onClick={() => onMenuItemChangeHandler("mealItem", mealItem)}
+          key={mealItem.id}
           value={mealItem.id}
         >
           {mealItem.name}
@@ -129,6 +131,7 @@ const MenuSubpage: React.FC = (): JSX.Element => {
         (mealTime) => (
           <option
             onClick={() => onMenuItemChangeHandler("mealTime", mealTime)}
+            key={mealTime}
             value={mealTime}
           >
             {mealTime}
@@ -156,7 +159,7 @@ const MenuSubpage: React.FC = (): JSX.Element => {
         {showCurrentDate()}
         <div className={styles["menu-list"]}>
           {menu.menuEntities.map((entity) => (
-            <div className={styles["menu-list-item"]}>
+            <div className={styles["menu-list-item"]} key={entity.name}>
               <h1>{entity.name}</h1>
               {entity.menuItems.map((menuItem, idx) => (
                 <div className={styles["meal-list-item"]}>
@@ -214,7 +217,7 @@ const MenuSubpage: React.FC = (): JSX.Element => {
           placeholder="500"
         />
 
-        <label htmlFor="portion">Размер порции в граммах</label>
+        <label htmlFor="portion">Размер порции</label>
         <input
           type="string"
           name="portion"

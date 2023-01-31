@@ -3,6 +3,7 @@ import BackgroundImageArray from "./images";
 import TitleComponent from "../../../../common/atomic-components/title/title.component";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../../redux/store";
 import { getMenuByCustomDateAsync } from "../../../../../redux/menu/menu.slice";
 import { convertDateToCustomDate } from "../../../../utils/date.util";
 import { useAppSelector } from "../../../../../redux/hooks";
@@ -15,7 +16,7 @@ const Fade = require("react-reveal/Fade");
  * @returns
  */
 const MenuComponent: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [date, setDate] = useState(new Date());
   const [backgroundImageIndex, setBackgroundImageIndex] = useState(0);
   const menu: MenuInterface = useAppSelector(menuSelector);
@@ -31,7 +32,7 @@ const MenuComponent: React.FC = () => {
   const showMenuByDayElements = (): JSX.Element => (
     <>
       {menu.menuEntities?.map((entity) => (
-        <div className={styles["meal-time-container"]}>
+        <div className={styles["meal-time-container"]} key={entity.name}>
           <h1>{entity.name}</h1>
           <div className={styles["meals-container"]}>
             {entity.menuItems.map((menuItem) => (

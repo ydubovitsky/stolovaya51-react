@@ -3,6 +3,7 @@ import styles from "./meal.module.css";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { AppDispatch } from "../../../../../redux/store";
 import { useDispatch } from "react-redux";
 import {
   MealItemInterface,
@@ -13,7 +14,7 @@ import {
 import { useAppSelector } from "../../../../../redux/hooks";
 
 const MealSubpage: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [meal, setMeal] = useState<MealItemInterface>();
   const mealsItemArray: MealItemInterface[] = useAppSelector(mealsItemArraySelector);
 

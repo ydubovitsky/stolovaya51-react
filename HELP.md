@@ -21,3 +21,6 @@ https://react-select.com/home
 ### Immer (Use Immer with useState Hook to Handle the State of your React app)
 https://immerjs.github.io/immer/
 https://dev.to/franciscomendes10866/use-immer-to-better-handle-the-state-of-your-react-app-489p
+
+### How to type useDispatch()
+https://stackoverflow.com/questions/68812319/redux-toolkit-argument-of-type-asyncthunkaction-is-not-assignable-to-param

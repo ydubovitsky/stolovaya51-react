@@ -12,10 +12,22 @@
   overflow: hidden;
 }
 
-.buttons-container {
+.nav-container {
   display: grid;
+  position: relative;
+  align-items: center;
+  background-color: whitesmoke;
   gap: 20px;
   padding: 20px;
-  background-color: whitesmoke;
-  grid-template-columns: repeat(auto-fit, minmax(50px, 100px));
+  grid-template-columns: repeat(auto-fit, minmax(100px, 150px));
+}
+
+.logout-icon {
+  position: absolute;
+  cursor: pointer;
+  right: 20px;
+}
+
+.logout-icon:hover {
+  color: red;
 }

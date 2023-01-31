@@ -1,11 +1,13 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchData } from "../../services/api-call.service";
 import { RootState } from "../store";
+import { BACKEND_URL } from "../../services/constants";
+import { MenuInterface } from "../../app/pages/dashboard/subpages/menu/menu.subpage";
 
 // ------------------------------------ Types ------------------------------------
 
 export interface MealItemInterface {
-  id?: number,
+  id?: number;
   name?: string;
   calories?: number;
   description?: string;
@@ -23,30 +25,37 @@ const initialState: MealStateInterface = {
 
 // ------------------------------------ AsyncThunk ------------------------------------
 
-export const createNewMealAsync: any = createAsyncThunk(
-  "meal/create",
-  async (meal) => {
-    const response = await fetchData({
-      method: "POST",
-      url: `http://localhost:8080/api/v1/meal`,
-      data: meal,
-      responseType: "json",
-    });
-    const result = (await response) as any;
-    return result;
-  }
-);
+export const createNewMealAsync: any = createAsyncThunk<
+  MealItemInterface,
+  MealItemInterface,
+  { state: RootState }
+>("meal/create", async (meal, { getState }) => {
+  const state: RootState = getState();
+  const token = state.user.userEntity.token;
 
-export const getAllMealsAsync: any = createAsyncThunk(
+  const responseData = await fetchData({
+    method: "POST",
+    url: `${BACKEND_URL}/api/v1/meal`,
+    data: meal,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: token,
+    },
+    responseType: "json",
+  });
+  return responseData;
+});
+
+export const getAllMealsAsync = createAsyncThunk<MealItemInterface[]>(
   "meal/get-all-meals",
-  async (meal) => {
-    const response = await fetchData({
+  async () => {
+    const responseData = await fetchData({
       method: "GET",
-      url: `http://localhost:8080/api/v1/meal/all`,
+      url: `${BACKEND_URL}/api/v1/meal/all`,
       responseType: "json",
     });
-    const result = (await response) as any;
-    return result;
+    return responseData;
   }
 );
 
@@ -83,7 +92,8 @@ export const mealSlice = createSlice({
 
 // ------------------------------------ Selectors ------------------------------------
 
-export const mealsItemArraySelector = (state: RootState) => state.meal.mealsItemArray;
+export const mealsItemArraySelector = (state: RootState) =>
+  state.meal.mealsItemArray;
 
 // ------------------------------------ Default import ------------------------------------
 
