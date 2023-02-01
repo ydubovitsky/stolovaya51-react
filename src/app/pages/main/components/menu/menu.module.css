@@ -10,7 +10,8 @@
   display: grid;
   align-items: center;
   justify-items: center;
-  grid-template-columns: 1fr 1fr 1fr;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
 .container-title input[type="date"] {
@@ -22,7 +23,7 @@
 
 .menu-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 50px;
   width: 105%;
   padding: 10%;
@@ -34,6 +35,7 @@
 
 .meal-time-container {
   display: grid;
+  padding: 5%;
   grid-template-rows: min-content auto;
   justify-items: center;
   background-color: white;

@@ -9,6 +9,7 @@ import { convertDateToCustomDate } from "../../../../utils/date.util";
 import { useAppSelector } from "../../../../../redux/hooks";
 import { menuSelector } from "../../../../../redux/menu/menu.slice";
 import { MenuInterface } from "../../../dashboard/subpages/menu/menu.subpage";
+import { ReactComponent as LunchSvg } from "./svg/lunch-svgrepo-com.svg";
 const Fade = require("react-reveal/Fade");
 
 /**
@@ -29,24 +30,36 @@ const MenuComponent: React.FC = () => {
     setDate(new Date(e.target.value));
   };
 
-  const showMenuByDayElements = (): JSX.Element => (
-    <>
-      {menu.menuEntities?.map((entity) => (
-        <div className={styles["meal-time-container"]} key={entity.name}>
-          <h1>{entity.name}</h1>
-          <div className={styles["meals-container"]}>
-            {entity.menuItems.map((menuItem) => (
-              <div className={styles["meal-item-detail"]}>
-                <p>{menuItem.mealItem?.name}</p>
-                <p>{menuItem.cost}</p>
-                <p>{menuItem.portion}</p>
-              </div>
-            ))}
-          </div>
+  const showMenuByDayElements = (): JSX.Element => {
+    if (menu.menuEntities == undefined || menu.menuEntities.length === 0) {
+      return (
+        <div className={styles["meal-time-container"]}>
+          <LunchSvg/>
+          <h1 style={{textAlign: "center", textDecoration: "none"}}>Мы не успели заполнить меню на этот день</h1>
+          <h3 style={{textAlign: "center", textDecoration: "none"}}>...но не расстраивайтесь, мы это скоро исправим, заходите позже</h3>
         </div>
-      ))}
-    </>
-  );
+      );
+    } else {
+      return (
+        <>
+          {menu.menuEntities?.map((entity) => (
+            <div className={styles["meal-time-container"]} key={entity.name}>
+              <h1>{entity.name}</h1>
+              <div className={styles["meals-container"]}>
+                {entity.menuItems.map((menuItem) => (
+                  <div className={styles["meal-item-detail"]}>
+                    <p>{menuItem.mealItem?.name}</p>
+                    <p>{menuItem.cost}</p>
+                    <p>{menuItem.portion}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </>
+      );
+    }
+  };
 
   return (
     <div className={styles["container"]}>
