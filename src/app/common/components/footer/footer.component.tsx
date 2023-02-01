@@ -8,7 +8,7 @@ const FooterComponent = () => {
     <div className={styles["container"]}>
       <div className={styles["about-container"]}>
         <div className={styles["logo-container"]}>
-          <div className={styles["logo"]}>Кафе в НИИ ТП</div>
+          <div className={styles["logo"]}>Столовая51 в НИИ ТП</div>
           <div className={styles["anchors-container"]}>
             <p>Наверх |</p>
             <p>Особенности |</p>

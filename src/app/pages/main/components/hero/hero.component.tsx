@@ -22,7 +22,8 @@ const HeroComponent: React.FC = () => {
       />
       <div className={styles["left-column"]}>
         <Fade left>
-          <h1>Кафе в НИИ ТП</h1>
+          <h1>Столова51</h1>
+          <h2>в НИИ ТП</h2>
           <h3>Приглашаем всех на вкусные завтраки, обеды и не только...</h3>
           <h4>...а так же вы можете забрать еду с собой</h4>
           <AtomicButtonComponent name="Посмотреть меню" />
