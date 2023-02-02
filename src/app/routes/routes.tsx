@@ -11,8 +11,8 @@ const RoutesComponent = () => (
   <Routes>
     <Route path="/" element={<MainLayout />}>
       <Route index element={<MainPage />} />
-      <Route path="login" element={<LoginPage />} />
       <Route element={<RequireAuthRoute />}>
+        <Route path="login" element={<LoginPage />} />
         <Route path="dashboard" element={<DashboardPage />}>
           <Route path="meal" element={<MealSubpage />} />
           <Route path="menu" element={<MenuSubpage />} />

@@ -137,3 +137,14 @@ export const userSelector = (state: RootState): UserStateInterface =>
 
 export const userEntitySelector = (state: RootState): UserInterface =>
   state.user.userEntity;
+
+export const isUserAdminSelector = (state: RootState): boolean => {
+  const { userEntity } = state.user;
+  const ROLES = ["ADMIN", "SUPER_ADMIN", "OWNER"];
+
+  if(userEntity.role != undefined) {
+    return userEntity.role?.some(r=> ROLES.includes(r));
+  }
+
+  return false;
+};

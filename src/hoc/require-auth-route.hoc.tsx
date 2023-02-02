@@ -1,16 +1,17 @@
 import { useSelector } from "react-redux";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { userSelector } from "../redux/user/user.slice";
-
-const ROLES = ["ADMIN", "SUPER_ADMIN", "OWNER"];
+import { isUserAdminSelector } from "../redux/user/user.slice";
 
 const RequireAuthRoute = (): JSX.Element => {
   const location = useLocation();
-  const { userEntity } = useSelector(userSelector);
+  const isAdmin = useSelector(isUserAdminSelector);
 
-  //if user has not role from ROLES than he will go to /login page
-  if (userEntity.role?.some(role => ROLES.includes(role)) && userEntity.token == null) {
-    return <Navigate to="/login" state={{ from: location }} />;
+  if(location.pathname.includes("dashboard") && !isAdmin) {
+    return <Navigate to="/login" state={{ from: location }}/>;
+  }
+
+  if(location.pathname === "/login" && isAdmin) {
+    return <Navigate to="/dashboard" state={{ from: location }}/>;
   }
 
   return <Outlet />;
