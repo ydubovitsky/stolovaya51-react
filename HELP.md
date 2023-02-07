@@ -25,11 +25,21 @@ https://dev.to/franciscomendes10866/use-immer-to-better-handle-the-state-of-your
 ### How to type useDispatch()
 https://stackoverflow.com/questions/68812319/redux-toolkit-argument-of-type-asyncthunkaction-is-not-assignable-to-param
 
+
+### Docker articles and tricks
+https://ealebed.github.io/tags/docker/
 ### Docker + React
+https://mherman.org/blog/dockerizing-a-react-app/ 
 https://jsramblings.com/dockerizing-a-react-app/
 https://collabnix.com/creating-your-first-react-app-using-docker/
-https://habr.com/ru/company/ruvds/blog/491710/
 https://www.youtube.com/watch?v=fJ2i0IWQdLA
 https://habr.com/ru/company/ruvds/blog/491710/
-https://www.simplilearn.com/tutorials/docker-tutorial/how-to-install-docker-on-ubuntu
+
+### Multi-Dockerfile
+https://www.baeldung.com/ops/multiple-dockerfiles
+https://stackoverflow.com/questions/27409761/docker-multiple-dockerfiles-in-project
+
+### NGINX + SPRING send request problem
+https://stackoverflow.com/questions/54019062/how-to-send-requests-from-nginx-react-container-to-a-spring-boot-container
+
 
