@@ -8,11 +8,18 @@ services:
     container_name: stolovaya51-react-dev
     build:
       dockerfile: ./docker/dev/Dockerfile
+    environment:
+      # Prefix REACT_APP has a matter!
+      REACT_APP_BACKEND_URL: http://stolovaya51-spring:8085
     ports:
      - "80:3000"
+
   stolovaya51-react-production:
     container_name: stolovaya51-react-production
     build: 
       dockerfile: ./docker/production/Dockerfile
+    environment:
+      # Prefix REACT_APP has a matter!
+      REACT_APP_BACKEND_URL: http://stolovaya51-spring:8085
     ports:
       - "80:80"

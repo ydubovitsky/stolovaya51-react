@@ -42,4 +42,6 @@ https://stackoverflow.com/questions/27409761/docker-multiple-dockerfiles-in-proj
 ### NGINX + SPRING send request problem
 https://stackoverflow.com/questions/54019062/how-to-send-requests-from-nginx-react-container-to-a-spring-boot-container
 
+### Environment variable
+https://stackoverflow.com/questions/52103155/reading-an-environment-variable-in-react-which-was-set-by-docker
 
