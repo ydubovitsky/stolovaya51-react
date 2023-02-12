@@ -35,18 +35,6 @@ export const createNewMenuAsync = createAsyncThunk<
   return responseData;
 });
 
-export const getMenuByCustomDateAsync = createAsyncThunk<
-  MenuInterface,
-  CustomDateInterface
->("meal/get-by-custom-date", async (date: CustomDateInterface) => {
-  const responseData = await fetchData({
-    method: "GET",
-    url: `${BACKEND_URL}/api/v1/menu?day=${date.day}&month=${date.month}&year=${date.year}`,
-    responseType: "json",
-  });
-  return responseData;
-});
-
 export const getMenuByDateAsync = createAsyncThunk<MenuInterface, Date>(
   "meal/get-by-date",
   async (date: Date) => {
@@ -87,14 +75,14 @@ export const menuSlice = createSlice({
         state.status = "failed";
       })
       //!getMenuByCustomDateAsync
-      .addCase(getMenuByCustomDateAsync.pending, (state) => {
+      .addCase(getMenuByDateAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getMenuByCustomDateAsync.fulfilled, (state, action) => {
+      .addCase(getMenuByDateAsync.fulfilled, (state, action) => {
         state.menu = action.payload;
         state.status = "loaded";
       })
-      .addCase(getMenuByCustomDateAsync.rejected, (state) => {
+      .addCase(getMenuByDateAsync.rejected, (state) => {
         state.status = "failed";
       });
   },

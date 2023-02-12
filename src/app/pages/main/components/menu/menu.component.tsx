@@ -4,8 +4,7 @@ import TitleComponent from "../../../../common/atomic-components/title/title.com
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../redux/store";
-import { getMenuByCustomDateAsync } from "../../../../../redux/menu/menu.slice";
-import { convertDateToCustomDate } from "../../../../utils/date.util";
+import { getMenuByDateAsync } from "../../../../../redux/menu/menu.slice";
 import { useAppSelector } from "../../../../../redux/hooks";
 import { menuSelector } from "../../../../../redux/menu/menu.slice";
 import { MenuInterface } from "../../../dashboard/subpages/menu/menu.subpage";
@@ -23,7 +22,7 @@ const MenuComponent: React.FC = () => {
   const menu: MenuInterface = useAppSelector(menuSelector);
 
   useEffect(() => {
-    dispatch(getMenuByCustomDateAsync(convertDateToCustomDate(date)));
+    dispatch(getMenuByDateAsync(date));
   }, [date]);
 
   const onDateInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
