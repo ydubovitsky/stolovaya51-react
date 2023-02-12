@@ -1,5 +1,6 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import MealMiddleware from './middleware/meal.middleware';
+import LoggingMiddleware from './middleware/logging.middleware';
 import { loadState, saveState } from '../services/local-storage.service';
 import mealReducer from './meal/meal.slice';
 import menuReducer from './menu/menu.slice';
@@ -16,7 +17,7 @@ export const store = configureStore({
   preloadedState: {
     user: persistedState
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(MealMiddleware)
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(MealMiddleware).concat(LoggingMiddleware)
 });
 
 //TODO Доработать, чтобы можно было передавать объект с множеством полей!
