@@ -2,13 +2,10 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch } from "../../../redux/store";
-import {
-  UserInterface,
-  login
-} from "../../../redux/user/user.slice";
+import { UserInterface, login } from "../../../redux/user/user.slice";
 import AtomicButtonComponent from "../../common/atomic-components/atomic-button/atomic-button.component";
 import styles from "./login.module.css";
-const Fade = require("react-reveal/Fade");
+import { Fade } from "react-awesome-reveal";
 
 /**
  * LoginPage component

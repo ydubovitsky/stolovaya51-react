@@ -9,7 +9,7 @@ import { useAppSelector } from "../../../../../redux/hooks";
 import { menuSelector } from "../../../../../redux/menu/menu.slice";
 import { MenuInterface } from "../../../dashboard/subpages/menu/menu.subpage";
 import { ReactComponent as LunchSvg } from "./svg/lunch-svgrepo-com.svg";
-const Fade = require("react-reveal/Fade");
+import { Fade } from "react-awesome-reveal";
 
 /**
  * MenuComponent
@@ -72,7 +72,7 @@ const MenuComponent: React.FC = () => {
         />
         <TitleComponent name="число" />
       </div>
-      <Fade cascade bottom>
+      <Fade>
         <div
           className={styles["menu-container"]}
           style={{

@@ -4,7 +4,7 @@ import image from "./images/irene-kredenets-6unxGRCPg0U-unsplash.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-const Fade = require("react-reveal/Fade");
+import { Fade } from "react-awesome-reveal";
 
 const HeroComponent: React.FC = () => {
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const HeroComponent: React.FC = () => {
         className={styles["login-icon"]}
       />
       <div className={styles["left-column"]}>
-        <Fade left>
+        <Fade>
           <h1>Столова51</h1>
           <h2>в НИИ ТП</h2>
           <h3>Приглашаем всех на вкусные завтраки, обеды и не только...</h3>

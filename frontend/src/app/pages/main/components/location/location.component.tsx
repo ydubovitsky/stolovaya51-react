@@ -1,7 +1,6 @@
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 import styles from "./location.module.css";
 import TitleComponent from "../../../../common/atomic-components/title/title.component";
-const Fade = require("react-reveal/Fade");
 
 const defaultState = {
   center: [55.861878, 37.625041],

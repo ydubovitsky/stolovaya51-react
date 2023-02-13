@@ -1,12 +1,12 @@
 import TitleComponent from "../../../../common/atomic-components/title/title.component";
 import styles from "./feature.module.css";
 import featuresMap from "./svg";
-const Fade = require("react-reveal/Fade");
+import { Fade } from "react-awesome-reveal";
 
 const FeatureComponent: React.FC = () => {
   const showFeaturesElements = () => {
     return Array.from(featuresMap).map(([key, value]) => (
-      <Fade cascade bottom>
+      <Fade cascade>
         <div className={styles["feature-container"]}>
           <div className={styles["feature-icon-container"]}>{value}</div>
           <div className={styles["feature-title"]}>
