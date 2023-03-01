@@ -17,11 +17,20 @@ COPY package-lock.json ./
 RUN npm install
 COPY . ./
 
+ARG REACT_APP_BACKEND_URL
+ENV REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
+
+# This command create .env file with environment variable
+# RUN echo 'REACT_APP_BACKEND_URL=http://memorush-spring:8080' > .env
+
+# that will be empty
+RUN echo "DEBUG": $REACT_APP_BACKEND_URL
+
 # This command create .env file with environment variable
 # RUN echo 'REACT_APP_BACKEND_URL=http://stolovaya51-spring:8080' > .env
 
 # The RUN command is only executed while the build image
-RUN npm run build
+RUN npm run build -p
 
 # production environment
 FROM nginx:stable-alpine
