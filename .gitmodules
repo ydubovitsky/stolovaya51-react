@@ -1,0 +1,3 @@
+[submodule "stolovaya51-spring"]
+	path = stolovaya51-spring
+	url = https://github.com/ydubovitsky/stolovaya51-spring.git

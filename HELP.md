@@ -45,3 +45,6 @@ https://stackoverflow.com/questions/54019062/how-to-send-requests-from-nginx-rea
 ### Environment variable
 https://stackoverflow.com/questions/52103155/reading-an-environment-variable-in-react-which-was-set-by-docker
 
+### Mono-repo
+https://www.youtube.com/watch?v=gSlXo2iLBro
+
