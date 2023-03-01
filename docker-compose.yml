@@ -1,25 +1,71 @@
-# Run it: docker-compose up -d
-# Run only one service: docker-compose up -d stolovaya51-react-dev
+# How to use it?
+# docker compose -f docker-compose-prod.yml up
 
 version: '3'
 services:
-  # You can rename this service special for docker-hub like: ydubovitsky/stolovaya51 
-  stolovaya51-react-dev:
-    container_name: stolovaya51-react-dev
+  # You can rename this service special for docker-hub like: ydubovitsky/stolovaya51
+  stolovaya51-spring:
     build:
-      dockerfile: ./docker/dev/Dockerfile
-    environment:
-      # Prefix REACT_APP has a matter!
-      REACT_APP_BACKEND_URL: http://stolovaya51-spring:8085
-    ports:
-     - "80:3000"
-
-  stolovaya51-react-production:
-    container_name: stolovaya51-react-production
-    build: 
+      context: ./stolovaya51-spring
       dockerfile: ./docker/production/Dockerfile
     environment:
-      # Prefix REACT_APP has a matter!
-      REACT_APP_BACKEND_URL: http://stolovaya51-spring:8085
+      PROFILE_ACTIVE: postgres
+      ADMIN_NAME: admin
+      ADMIN_PASSWORD: password
+      POSTGRES_URL: jdbc:postgresql://stolovaya51-db:5432/postgres
+      POSTGRES_USERNAME: postgres
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DDL_AUTO: update
+    depends_on:
+      - stolovaya51-db
+      - stolovaya51-pgadmin
+    networks:
+      - stolovaya51
+
+  stolovaya51-react:
+    build:
+      dockerfile: ./docker/production/Dockerfile
+      args:
+        # Change me!
+        - REACT_APP_BACKEND_URL=http://api.stolovaya51.ru
     ports:
-      - "80:80"
+      - 80:80
+    networks:
+     - stolovaya51
+
+  stolovaya51-db:
+    image: postgres:alpine3.17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: changeme
+      PGDATA: /data/postgres
+    volumes:
+      - stolovaya51-db:/data/postgres
+    networks:
+      - stolovaya51
+    restart: unless-stopped
+
+  stolovaya51-pgadmin:
+    container_name: stolovaya51-pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - stolovaya51-pgadmin:/var/lib/pgadmin
+    depends_on:
+      - stolovaya51-db
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - stolovaya51
+    restart: unless-stopped
+
+networks:
+  stolovaya51:
+    driver: bridge
+
+volumes:
+  stolovaya51-db:
+  stolovaya51-pgadmin:
