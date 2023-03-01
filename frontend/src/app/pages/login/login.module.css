@@ -18,3 +18,13 @@
   border-radius: 20px;
   box-shadow: 1px 1px 2px 1px silver;
 }
+
+.login-form-container input {
+  padding: 1rem;
+}
+
+.buttons-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}

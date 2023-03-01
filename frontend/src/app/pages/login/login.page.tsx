@@ -21,6 +21,11 @@ const LoginPage: React.FC = (): JSX.Element => {
     navigate("/dashboard");
   };
 
+  const navigateToMainPage = (): void => {
+    dispatch(login(user));
+    navigate("/");
+  };
+
   const onLoginFormChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUser({
       ...user,
@@ -30,8 +35,8 @@ const LoginPage: React.FC = (): JSX.Element => {
 
   return (
     <div className={styles["container"]}>
-      <Fade>
-        <div className={styles["login-form-container"]}>
+      <div className={styles["login-form-container"]}>
+        <Fade>
           <label htmlFor="username">Введите имя пользователя</label>
           <input
             type="text"
@@ -46,12 +51,18 @@ const LoginPage: React.FC = (): JSX.Element => {
             onChange={onLoginFormChangeHandler}
             placeholder="123"
           />
-          <AtomicButtonComponent
-            name="Войти"
-            clickFunction={navigateToDashboardPage}
-          />
-        </div>
-      </Fade>
+          <div className={styles["buttons-container"]}>
+            <AtomicButtonComponent
+              name="Войти"
+              clickFunction={navigateToDashboardPage}
+            />
+            <AtomicButtonComponent
+              name="Назад"
+              clickFunction={navigateToMainPage}
+            />
+          </div>
+        </Fade>
+      </div>
     </div>
   );
 };
