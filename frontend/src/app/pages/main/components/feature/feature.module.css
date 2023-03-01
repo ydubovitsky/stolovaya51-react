@@ -8,14 +8,17 @@
 }
 
 .features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 20px;
   width: 100%;
 }
 
 .feature-container {
   display: grid;
+  max-width: 300px;
   align-items: center;
   justify-items: center;
   padding: 20px;

@@ -33,9 +33,13 @@ const MenuComponent: React.FC = () => {
     if (menu.menuEntities == undefined || menu.menuEntities.length === 0) {
       return (
         <div className={styles["meal-time-container"]}>
-          <LunchSvg/>
-          <h1 style={{textAlign: "center", textDecoration: "none"}}>Мы не успели заполнить меню на этот день</h1>
-          <h3 style={{textAlign: "center", textDecoration: "none"}}>...но не расстраивайтесь, мы это скоро исправим, заходите позже</h3>
+          <LunchSvg />
+          <h1 style={{ textAlign: "center", textDecoration: "none" }}>
+            Мы не успели заполнить меню на этот день
+          </h1>
+          <h3 style={{ textAlign: "center", textDecoration: "none" }}>
+            ...но не расстраивайтесь, мы это скоро исправим, заходите позже
+          </h3>
         </div>
       );
     } else {
@@ -72,16 +76,14 @@ const MenuComponent: React.FC = () => {
         />
         <TitleComponent name="число" />
       </div>
-      <Fade>
-        <div
-          className={styles["menu-container"]}
-          style={{
-            backgroundImage: `url(${BackgroundImageArray[backgroundImageIndex]})`,
-          }}
-        >
-          {showMenuByDayElements()}
-        </div>
-      </Fade>
+      <div
+        className={styles["menu-container"]}
+        style={{
+          backgroundImage: `url(${BackgroundImageArray[backgroundImageIndex]})`,
+        }}
+      >
+        {showMenuByDayElements()}
+      </div>
     </div>
   );
 };
