@@ -23,7 +23,7 @@ export interface UserStateInterface {
 // -------------------------------------- AsyncThunk --------------------------------------
 
 export const registration = createAsyncThunk<UserInterface, UserInterface>(
-  "auth/registration",
+  "user/registration",
   async (data) => {
     const payload = {
       method: "POST",
@@ -36,7 +36,7 @@ export const registration = createAsyncThunk<UserInterface, UserInterface>(
 );
 
 export const login = createAsyncThunk<UserInterface, UserInterface>(
-  "auth/login",
+  "user/login",
   async (user) => {
     const payload = {
       method: "POST",
@@ -52,7 +52,7 @@ export const updateUserData: any = createAsyncThunk<
   UserInterface,
   UserInterface,
   { state: RootState }
->("auth/updateUserData", async (user, { getState }) => {
+>("user/updateUserData", async (user, { getState }) => {
   const state: RootState = getState();
   const token = state.user.userEntity.token;
   const payload = {

@@ -1,29 +1,33 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import MealMiddleware from './middleware/meal.middleware';
-import LoggingMiddleware from './middleware/logging.middleware';
-import { loadState, saveState } from '../services/local-storage.service';
-import mealReducer from './meal/meal.slice';
-import menuReducer from './menu/menu.slice';
-import userReducer from "./user/user.slice"
+import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import MealMiddleware from "./middleware/meal.middleware";
+import LoggingMiddleware from "./middleware/logging.middleware";
+import PopupMiddleware from "./middleware/popup.middleware";
+import { loadState, saveState } from "../services/local-storage.service";
+import mealReducer from "./meal/meal.slice";
+import menuReducer from "./menu/menu.slice";
+import userReducer from "./user/user.slice";
+import popupReducer from "./popup/popup.slice";
 
-const persistedState = loadState('user');
+const persistedState = loadState("user");
 
 export const store = configureStore({
   reducer: {
     meal: mealReducer,
+    popup: popupReducer,
     menu: menuReducer,
-    user: userReducer
+    user: userReducer,
   },
   preloadedState: {
-    user: persistedState
+    user: persistedState,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(MealMiddleware).concat(LoggingMiddleware)
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(MealMiddleware).concat(LoggingMiddleware, PopupMiddleware),
 });
 
 //TODO Доработать, чтобы можно было передавать объект с множеством полей!
 //! Save user state
 store.subscribe(() => {
-  saveState('user', store.getState().user);
+  saveState("user", store.getState().user);
 });
 
 export type AppDispatch = typeof store.dispatch;
