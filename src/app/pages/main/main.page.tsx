@@ -1,3 +1,4 @@
+import DownloadComponent from "./components/download/download.component";
 import FeatureComponent from "./components/feature/feature.component";
 import HeroComponent from "./components/hero/hero.component";
 import LocationComponent from "./components/location/location.component";
@@ -10,6 +11,7 @@ const MainPage: React.FC = () => {
       <HeroComponent />
       <FeatureComponent />
       <MenuComponent />
+      <DownloadComponent/>
       <LocationComponent />
     </div>
   );

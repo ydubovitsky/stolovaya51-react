@@ -1,0 +1,51 @@
+.container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 20px;
+	align-items: center;
+	justify-items: center;
+	padding: 50px;
+	border-bottom: 1px solid silver;
+	background-color: white;
+}
+
+.column {
+	display: grid;
+	grid-template-rows: min-content min-content max-content;
+	gap: 20px;
+	align-items: center;
+	justify-items: center;
+}
+
+.column.info {
+	display: grid;
+	grid-template-rows: min-content auto;
+	align-items: center;
+	justify-content: center;
+	justify-items: center;
+	text-align: center;
+}
+
+.header {
+	display: grid;
+	gap: 20px;
+}
+
+.header h1 {
+	font-size: 3rem;
+}
+
+.points {
+	display: grid;
+	width: 100%;
+}
+
+.point {
+	display: flex;
+	word-break: break-all;
+}
+
+.screen {
+	width: 250px;
+	height: auto;
+}
