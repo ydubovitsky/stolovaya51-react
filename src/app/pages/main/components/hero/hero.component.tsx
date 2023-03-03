@@ -4,6 +4,7 @@ import image from "./images/irene-kredenets-6unxGRCPg0U-unsplash.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRightToBracket } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { scrollToElementIdHandler } from "../../../../utils/scroll.util";
 import { Fade } from "react-awesome-reveal";
 
 const HeroComponent: React.FC = () => {
@@ -14,7 +15,7 @@ const HeroComponent: React.FC = () => {
   };
 
   return (
-    <div className={styles["container"]}>
+    <div className={styles["container"]} id="hero-container">
       <FontAwesomeIcon
         onClick={navigateToLoginPage}
         icon={faRightToBracket}
@@ -26,7 +27,10 @@ const HeroComponent: React.FC = () => {
           <h2>в НИИ ТП</h2>
           <h3>Приглашаем всех на вкусные завтраки, обеды и не только...</h3>
           <h4>...а так же вы можете забрать еду с собой</h4>
-          <AtomicButtonComponent name="Посмотреть меню" />
+          <AtomicButtonComponent
+            name="Посмотреть меню"
+            clickFunction={() => scrollToElementIdHandler("menu-container")}
+          />
           <h3>Работаем с понедельника по пятницу с 7.30 до 15.30</h3>
         </Fade>
       </div>

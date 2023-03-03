@@ -21,7 +21,7 @@ const FeatureComponent: React.FC = () => {
   };
 
   return (
-    <div className={styles["container"]}>
+    <div className={styles["container"]} id="feature-container">
       <div className={styles["container-title"]}>
         <TitleComponent name="Наши особенности" />
       </div>

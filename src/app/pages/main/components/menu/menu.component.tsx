@@ -65,7 +65,7 @@ const MenuComponent: React.FC = () => {
   };
 
   return (
-    <div className={styles["container"]}>
+    <div className={styles["container"]} id="menu-container">
       <div className={styles["container-title"]}>
         <TitleComponent name="Меню на" />
         <input
