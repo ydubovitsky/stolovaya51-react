@@ -37,7 +37,7 @@
   display: grid;
   width: 100%;
   align-items: center;
-  grid-template-columns: 5fr 1fr 1fr;
+  grid-template-columns: 5fr 1fr;
   padding: 2px;
   border-bottom: 1px solid rgb(233, 233, 233);
 }

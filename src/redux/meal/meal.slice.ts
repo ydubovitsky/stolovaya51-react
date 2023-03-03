@@ -59,6 +59,28 @@ export const getAllMealsAsync = createAsyncThunk<MealItemInterface[]>(
   }
 );
 
+
+export const deleteMealAsync: any = createAsyncThunk<
+  MealItemInterface,
+  MealItemInterface,
+  { state: RootState }
+>("meal/delete", async (id, { getState }) => {
+  const state: RootState = getState();
+  const token = state.user.userEntity.token;
+
+  const responseData = await fetchData({
+    method: "DELETE",
+    url: `${BACKEND_URL}/api/v1/meal/${id}`,
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: token,
+    },
+    responseType: "json",
+  });
+  return responseData;
+});
+
 // ------------------------------------ Slice ------------------------------------
 
 export const mealSlice = createSlice({
@@ -76,7 +98,7 @@ export const mealSlice = createSlice({
       .addCase(createNewMealAsync.rejected, (state) => {
         state.status = "failed";
       })
-      //!getAllMealsAsync
+      //! getAllMealsAsync
       .addCase(getAllMealsAsync.pending, (state) => {
         state.status = "loading";
       })
@@ -86,7 +108,11 @@ export const mealSlice = createSlice({
       })
       .addCase(getAllMealsAsync.rejected, (state) => {
         state.status = "failed";
-      });
+      })
+      //! deleteMealAsync
+      .addCase(deleteMealAsync.fulfilled, (state, action) => {
+        state.mealsItemArray = state.mealsItemArray.filter(mealItem => mealItem.id != action.payload);
+      })
   },
 });
 

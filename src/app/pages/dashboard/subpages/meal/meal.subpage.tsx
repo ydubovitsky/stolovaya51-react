@@ -10,13 +10,16 @@ import {
   createNewMealAsync,
   getAllMealsAsync,
   mealsItemArraySelector,
+  deleteMealAsync,
 } from "../../../../../redux/meal/meal.slice";
 import { useAppSelector } from "../../../../../redux/hooks";
 
 const MealSubpage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [meal, setMeal] = useState<MealItemInterface>();
-  const mealsItemArray: MealItemInterface[] = useAppSelector(mealsItemArraySelector);
+  const mealsItemArray: MealItemInterface[] = useAppSelector(
+    mealsItemArraySelector
+  );
 
   useEffect((): void => {
     if (mealsItemArray.length === 0) {
@@ -43,6 +46,12 @@ const MealSubpage: React.FC = () => {
     dispatch(createNewMealAsync(meal));
   };
 
+  const deleteMealById = (id: number | undefined): void => {
+    if (id != undefined) {
+      dispatch(deleteMealAsync(id));
+    }
+  };
+
   //!TODO Упростить
   const showMealListElements = (): JSX.Element | JSX.Element[] => {
     if (mealsItemArray.length === 0) {
@@ -51,8 +60,10 @@ const MealSubpage: React.FC = () => {
       return mealsItemArray.map((mealItem) => (
         <div className={styles["meal-list-item"]} key={mealItem.id}>
           <p>{mealItem.name}</p>
-          <FontAwesomeIcon icon={faEdit} />
-          <FontAwesomeIcon icon={faTrashCan} />
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            onClick={() => deleteMealById(mealItem.id)}
+          />
         </div>
       ));
     }
