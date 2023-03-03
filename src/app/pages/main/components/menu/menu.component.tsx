@@ -1,15 +1,16 @@
-import styles from "./menu.module.css";
-import BackgroundImageArray from "./images";
-import TitleComponent from "../../../../common/atomic-components/title/title.component";
+import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../redux/store";
-import { getMenuByDateAsync } from "../../../../../redux/menu/menu.slice";
+import { useReactToPrint } from "react-to-print";
 import { useAppSelector } from "../../../../../redux/hooks";
-import { menuSelector } from "../../../../../redux/menu/menu.slice";
+import { getMenuByDateAsync, menuSelector } from "../../../../../redux/menu/menu.slice";
+import { AppDispatch } from "../../../../../redux/store";
+import TitleComponent from "../../../../common/atomic-components/title/title.component";
 import { MenuInterface } from "../../../dashboard/subpages/menu/menu.subpage";
+import BackgroundImageArray from "./images";
+import styles from "./menu.module.css";
 import { ReactComponent as LunchSvg } from "./svg/lunch-svgrepo-com.svg";
-import { Fade } from "react-awesome-reveal";
 
 /**
  * MenuComponent
@@ -19,6 +20,7 @@ const MenuComponent: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [date, setDate] = useState(new Date());
   const [backgroundImageIndex, setBackgroundImageIndex] = useState(0);
+  const menuRef = useRef<HTMLDivElement>(null);
   const menu: MenuInterface = useAppSelector(menuSelector);
 
   useEffect(() => {
@@ -28,6 +30,10 @@ const MenuComponent: React.FC = () => {
   const onDateInputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(new Date(e.target.value));
   };
+
+  const printHandler = useReactToPrint({
+    content: () => menuRef.current,
+  });
 
   const showMenuByDayElements = (): JSX.Element => {
     if (menu.menuEntities == undefined || menu.menuEntities.length === 0) {
@@ -78,10 +84,16 @@ const MenuComponent: React.FC = () => {
       </div>
       <div
         className={styles["menu-container"]}
+        ref={menuRef}
         style={{
           backgroundImage: `url(${BackgroundImageArray[backgroundImageIndex]})`,
         }}
       >
+        <FontAwesomeIcon
+          icon={faPrint}
+          onClick={printHandler}
+          className={styles["print-icon"]}
+        />
         {showMenuByDayElements()}
       </div>
     </div>

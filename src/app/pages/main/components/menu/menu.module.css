@@ -22,6 +22,7 @@
 }
 
 .menu-container {
+  position: relative;
   /* display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 50px; */
@@ -35,6 +36,15 @@
   background-attachment: fixed;
   background-position: center;
   background-size: cover;
+}
+
+.print-icon {
+  position: absolute;
+  top: 20px;
+  z-index: 1000;
+  color: #6B6B6B;
+  font-size: 3rem;
+  right: 60px;
 }
 
 .meal-time-container {
