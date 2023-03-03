@@ -22,9 +22,13 @@
 }
 
 .menu-container {
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 50px;
+  gap: 50px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
   width: 100%;
   padding: 10%;
   background-repeat: no-repeat;
@@ -36,6 +40,8 @@
 .meal-time-container {
   display: grid;
   padding: 5%;
+  /* remove me (width) if it need */
+  width: 100%;
   grid-template-rows: min-content auto;
   justify-items: center;
   background-color: white;
@@ -49,6 +55,7 @@
 }
 
 .meals-container {
+  width: 100%;
   max-height: 500px;
   overflow-y: auto;
 }

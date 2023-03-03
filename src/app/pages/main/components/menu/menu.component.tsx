@@ -52,7 +52,7 @@ const MenuComponent: React.FC = () => {
                 {entity.menuItems.map((menuItem) => (
                   <div className={styles["meal-item-detail"]}>
                     <p>{menuItem.mealItem?.name}</p>
-                    <p>{menuItem.cost}</p>
+                    <p>{menuItem.cost} р.</p>
                     <p>{menuItem.portion}</p>
                   </div>
                 ))}
