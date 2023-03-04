@@ -4,13 +4,18 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useReactToPrint } from "react-to-print";
 import { useAppSelector } from "../../../../../redux/hooks";
-import { getMenuByDateAsync, menuSelector } from "../../../../../redux/menu/menu.slice";
+import {
+  getMenuByDateAsync,
+  menuSelector,
+} from "../../../../../redux/menu/menu.slice";
 import { AppDispatch } from "../../../../../redux/store";
 import TitleComponent from "../../../../common/atomic-components/title/title.component";
 import { MenuInterface } from "../../../dashboard/subpages/menu/menu.subpage";
 import BackgroundImageArray from "./images";
 import styles from "./menu.module.css";
 import { ReactComponent as LunchSvg } from "./svg/lunch-svgrepo-com.svg";
+import TipComponent, { TipComponentProps } from "../../../../common/components/tip/tip.component";
+import Portal from "../../../../common/components/portal/portal.component";
 
 /**
  * MenuComponent
@@ -21,7 +26,46 @@ const MenuComponent: React.FC = () => {
   const [date, setDate] = useState(new Date());
   const [backgroundImageIndex, setBackgroundImageIndex] = useState(0);
   const menuRef = useRef<HTMLDivElement>(null);
+  const menuDatePickerRef = useRef<HTMLInputElement>(null);
+  const printIconRef = useRef<SVGSVGElement>(null);
   const menu: MenuInterface = useAppSelector(menuSelector);
+  const [tipStyle, setTipStyle] = useState<TipComponentProps>({});
+
+  useEffect(() => {
+    if (printIconRef && printIconRef.current) {
+      printIconRef.current?.addEventListener("mousemove", (e) => {
+        setTipStyle({
+          top: (e.pageY - 150) + "px",
+          left: (e.pageX - 100) + "px",
+          text: "Нажми меня, чтобы распечатать меню!",
+          display: "grid"
+        })
+      });
+
+      printIconRef.current?.addEventListener("mouseleave", (e) => {
+        setTipStyle({
+          display: "none"
+        });
+      });
+    }
+
+    if (menuDatePickerRef && menuDatePickerRef.current) {
+      menuDatePickerRef.current?.addEventListener("mousemove", (e) => {
+        setTipStyle({
+          top: (e.pageY - 150) + "px",
+          left: (e.pageX - 100) + "px",
+          text: "Нажми меня, чтобы изменить день и посмотреть меню на выбранное вами число",
+          display: "grid"
+        })
+      });
+
+      menuDatePickerRef.current?.addEventListener("mouseleave", (e) => {
+        setTipStyle({
+          display: "none"
+        });
+      });
+    }
+  }, []);
 
   useEffect(() => {
     dispatch(getMenuByDateAsync(date));
@@ -77,6 +121,7 @@ const MenuComponent: React.FC = () => {
         <input
           type="date"
           name="date"
+          ref={menuDatePickerRef}
           onChange={(e) => onDateInputChangeHandler(e)}
           defaultValue={new Date().toISOString().split("T")[0]}
         />
@@ -89,7 +134,9 @@ const MenuComponent: React.FC = () => {
           backgroundImage: `url(${BackgroundImageArray[backgroundImageIndex]})`,
         }}
       >
+        <Portal children={<TipComponent {...tipStyle} />} />
         <FontAwesomeIcon
+          ref={printIconRef}
           icon={faPrint}
           onClick={printHandler}
           className={styles["print-icon"]}
