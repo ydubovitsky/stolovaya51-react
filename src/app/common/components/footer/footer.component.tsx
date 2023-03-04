@@ -21,8 +21,7 @@ const FooterComponent = () => {
             <FontAwesomeIcon icon={faMapMarkedAlt} /> Как нас найти?
           </p>
           <p>г.Москва, ул. Декабристов 51с5</p>
-          <p>Наш телефон:</p>
-          <p>123-45-67</p>
+          <p></p>
         </div>
       </div>
       <div
