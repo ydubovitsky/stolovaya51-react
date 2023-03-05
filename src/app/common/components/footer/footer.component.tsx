@@ -31,7 +31,7 @@ const FooterComponent = () => {
       <div className={styles["author-container"]}>
         <p>
           © 2023 - {new Date().getFullYear()} All Rights Reserved. Created By 
-          <a href="http://y-dubovitsky.ru"> Yury Dubovitsky</a>
+          <a href="http://ydubovitsky.ru"> Y.Dubovitsky</a>
         </p>
       </div>
     </div>
