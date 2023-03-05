@@ -19,6 +19,7 @@
 
 .column.info {
 	display: grid;
+	width: 100%;
 	grid-template-rows: min-content auto;
 	align-items: center;
 	justify-content: center;
