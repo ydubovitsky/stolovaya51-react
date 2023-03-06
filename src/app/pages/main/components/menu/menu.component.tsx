@@ -14,7 +14,9 @@ import { MenuInterface } from "../../../dashboard/subpages/menu/menu.subpage";
 import BackgroundImageArray from "./images";
 import styles from "./menu.module.css";
 import { ReactComponent as LunchSvg } from "./svg/lunch-svgrepo-com.svg";
-import TipComponent, { TipComponentProps } from "../../../../common/components/tip/tip.component";
+import TipComponent, {
+  TipComponentProps,
+} from "../../../../common/components/tip/tip.component";
 import Portal from "../../../../common/components/portal/portal.component";
 
 /**
@@ -35,16 +37,16 @@ const MenuComponent: React.FC = () => {
     if (printIconRef && printIconRef.current) {
       printIconRef.current?.addEventListener("mousemove", (e) => {
         setTipStyle({
-          top: (e.pageY - 150) + "px",
-          left: (e.pageX - 100) + "px",
+          top: e.pageY - 150 + "px",
+          left: e.pageX - 100 + "px",
           text: "Нажми меня, чтобы распечатать меню!",
-          display: "grid"
-        })
+          display: "grid",
+        });
       });
 
       printIconRef.current?.addEventListener("mouseleave", (e) => {
         setTipStyle({
-          display: "none"
+          display: "none",
         });
       });
     }
@@ -52,16 +54,16 @@ const MenuComponent: React.FC = () => {
     if (menuDatePickerRef && menuDatePickerRef.current) {
       menuDatePickerRef.current?.addEventListener("mousemove", (e) => {
         setTipStyle({
-          top: (e.pageY - 150) + "px",
-          left: (e.pageX - 100) + "px",
+          top: e.pageY - 150 + "px",
+          left: e.pageX - 100 + "px",
           text: "Нажми меня, чтобы изменить день и посмотреть меню на выбранное вами число",
-          display: "grid"
-        })
+          display: "grid",
+        });
       });
 
       menuDatePickerRef.current?.addEventListener("mouseleave", (e) => {
         setTipStyle({
-          display: "none"
+          display: "none",
         });
       });
     }
