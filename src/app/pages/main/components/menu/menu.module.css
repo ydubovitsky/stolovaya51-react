@@ -19,6 +19,7 @@
 }
 
 .menu-container {
+  position: relative;
   padding: 5% 10%;
   display: grid;
   gap: 20px;
@@ -29,8 +30,23 @@
   top: 20px;
   z-index: 1000;
   color: #6B6B6B;
-  font-size: 3rem;
-  right: 60px;
+  font-size: 2rem;
+  right: 20px;
+  border: 1px solid silver;
+  padding: 10px;
+  border-radius: 50%;
+  transition: 0.3s ease;
+  box-shadow: 1px 2px 1px silver;
+  cursor: pointer;
+}
+
+.print-icon:hover {
+  background-color: red;
+  border-color: red;
+}
+
+.print-icon:active {
+  transform: scale(0.95);
 }
 
 .meal-time-container {
