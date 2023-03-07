@@ -25,11 +25,13 @@
 }
 
 .anchors-container {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-  gap: 20px;
-  white-space: nowrap;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.anchors-container p a {
+  color: black;
+  text-decoration: none;
 }
 
 .contacts-container {

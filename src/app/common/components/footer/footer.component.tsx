@@ -1,5 +1,6 @@
 import styles from "./footer.module.css";
 import imageSrc from "./images/jimmy-dean-Yn0l7uwBrpw-unsplash.jpg";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMapMarkedAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,8 +12,7 @@ const FooterComponent = () => {
           <div className={styles["logo"]}>Столовая51 в НИИ ТП</div>
           <div className={styles["anchors-container"]}>
             <p>Наверх |</p>
-            <p>Особенности |</p>
-            <p>Меню |</p>
+            <p><Link to={"/privacy-policy"}>Политика конфеденциальности |</Link></p>
             <p>Скачать наше приложение</p>
           </div>
         </div>

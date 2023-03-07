@@ -6,11 +6,13 @@ import DashboardPage from "../pages/dashboard/dashboard.page";
 import MealSubpage from "../pages/dashboard/subpages/meal/meal.subpage";
 import MenuSubpage from "../pages/dashboard/subpages/menu/menu.subpage";
 import RequireAuthRoute from "../../hoc/require-auth-route.hoc";
+import PrivacyPolicyPage from "../pages/privacy-policy/privacy-policy.page";
 
 const RoutesComponent = () => (
   <Routes>
     <Route path="/" element={<MainLayout />}>
       <Route index element={<MainPage />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       <Route element={<RequireAuthRoute />}>
         <Route path="login" element={<LoginPage />} />
         <Route path="dashboard" element={<DashboardPage />}>
