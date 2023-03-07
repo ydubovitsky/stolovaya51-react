@@ -11,7 +11,7 @@ const FooterComponent = () => {
         <div className={styles["logo-container"]}>
           <div className={styles["logo"]}>Столовая51 в НИИ ТП</div>
           <div className={styles["anchors-container"]}>
-            <p>Наверх |</p>
+            <p><Link to={"/"}>Главная страница |</Link></p>
             <p><Link to={"/privacy-policy"}>Политика конфеденциальности |</Link></p>
             <p>Скачать наше приложение</p>
           </div>
