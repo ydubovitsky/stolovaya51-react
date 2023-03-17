@@ -33,6 +33,7 @@ const MenuComponent: React.FC = () => {
   const menu: MenuInterface = useAppSelector(menuSelector);
   const [tipStyle, setTipStyle] = useState<TipComponentProps>({});
 
+  //!TODO Переписать с использованием событий реакта! убрать useRef и т.д.
   useEffect(() => {
     if (printIconRef && printIconRef.current) {
       printIconRef.current?.addEventListener("mousemove", (e) => {
