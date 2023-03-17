@@ -29,6 +29,7 @@
 
 .header {
 	display: grid;
+	text-align: start;
 	gap: 20px;
 }
 
@@ -38,15 +39,24 @@
 
 .points {
 	display: grid;
+	text-align: start;
 	width: 100%;
+}
+
+.qrcode {
+	text-align: end;
 }
 
 .point {
 	display: flex;
-	word-break: break-all;
 }
 
 .screen {
 	width: 250px;
 	height: auto;
+}
+
+.download-button {
+	text-decoration: none;
+	color: black;
 }
