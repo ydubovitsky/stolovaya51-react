@@ -1,8 +1,8 @@
 import style from './error-page.module.css';
 import { useNavigate } from 'react-router-dom';
-import ButtonComponent from '../button/button.component';
+import AtomicButtonComponent from '../../atomic-components/atomic-button/atomic-button.component';
 
-function ErrorPage() {
+const ErrorPage : React.FC = () : JSX.Element => {
 
   const navigate = useNavigate();
 
@@ -14,8 +14,8 @@ function ErrorPage() {
         </div>
         <h2>Oops! This Page Could Not Be Found</h2>
         <p>Sorry but the page you are looking for does not exist, have been removed. name changed or is temporarily unavailable</p>
-        <ButtonComponent
-          handler={() => navigate("/main")}
+        <AtomicButtonComponent
+          clickFunction={() => navigate("/main")}
           name="Go To Homepage" />
       </div>
     </div>
