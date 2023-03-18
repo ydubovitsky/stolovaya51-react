@@ -24,10 +24,11 @@ services:
 
   stolovaya51-react:
     build:
-      dockerfile: ./docker/production/Dockerfile
+      context: .
+      dockerfile: ./docker/static-server/Dockerfile
       args:
         # Change me!
-        - REACT_APP_BACKEND_URL=http://api.stolovaya51.ru
+        - REACT_APP_BACKEND_URL=https://api.stolovaya51.ru
     ports:
       - 80:80
     networks:
