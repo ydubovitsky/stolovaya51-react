@@ -1,12 +1,13 @@
 import produce from "immer";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../redux/store";
 import { useAppSelector } from "../../../../../redux/hooks";
 import {
   MealItemInterface,
+  getAllMealsAsync,
   mealsItemArraySelector,
 } from "../../../../../redux/meal/meal.slice";
 import { createNewMenuAsync } from "../../../../../redux/menu/menu.slice";
@@ -55,6 +56,11 @@ const MenuSubpage: React.FC = (): JSX.Element => {
   const [menuItem, setMenuItem] = useState<MenuItemInterface>({ mealTime: "" });
   //!TODO Избавиться от menuInitState
   const [menu, setMenu] = useState<MenuInterface>(menuInitState);
+
+  //! Каждый раз при рендере будет делаться запрос для получения компонентов блюд
+  useEffect(() => {
+    dispatch(getAllMealsAsync());
+  }, [])
 
   const addMenuListItemToMenuHandler = (): void => {
     setMenu(
@@ -140,9 +146,6 @@ const MenuSubpage: React.FC = (): JSX.Element => {
       )}
     </select>
   );
-
-  console.log(menuItem);
-  console.log(menu);
 
   const showMenuListContainerElement = (): JSX.Element => {
     const showCurrentDate = (): JSX.Element => (
