@@ -9,16 +9,15 @@ services:
       context: ./stolovaya51-spring
       dockerfile: ./docker/production/Dockerfile
     environment:
-      PROFILE_ACTIVE: postgres
-      ADMIN_NAME: admin
-      ADMIN_PASSWORD: password
+      PROFILE_ACTIVE: ${PROFILE_ACTIVE}
+      ADMIN_NAME: ${ADMIN_NAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
       POSTGRES_URL: jdbc:postgresql://stolovaya51-db:5432/postgres
-      POSTGRES_USERNAME: postgres
-      POSTGRES_PASSWORD: changeme
-      POSTGRES_DDL_AUTO: update
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DDL_AUTO: ${POSTGRES_DDL_AUTO}
     depends_on:
       - stolovaya51-db
-      - stolovaya51-pgadmin
     networks:
       - stolovaya51
 
@@ -27,37 +26,18 @@ services:
       dockerfile: ./docker/production/Dockerfile
       args:
         # Change me!
-        - REACT_APP_BACKEND_URL=http://api.stolovaya51.ru
-    ports:
-      - 80:80
+        - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
     networks:
      - stolovaya51
 
   stolovaya51-db:
     image: postgres:alpine3.17
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: changeme
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       PGDATA: /data/postgres
     volumes:
       - stolovaya51-db:/data/postgres
-    networks:
-      - stolovaya51
-    restart: unless-stopped
-
-  stolovaya51-pgadmin:
-    container_name: stolovaya51-pgadmin
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes:
-      - stolovaya51-pgadmin:/var/lib/pgadmin
-    depends_on:
-      - stolovaya51-db
-    ports:
-      - "${PGADMIN_PORT:-5050}:80"
     networks:
       - stolovaya51
     restart: unless-stopped
@@ -68,4 +48,3 @@ networks:
 
 volumes:
   stolovaya51-db:
-  stolovaya51-pgadmin:
