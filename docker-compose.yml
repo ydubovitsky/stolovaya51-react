@@ -23,7 +23,8 @@ services:
 
   stolovaya51-react:
     build:
-      dockerfile: ./docker/production/Dockerfile
+      context: .
+      dockerfile: ./docker/static-server/Dockerfile
       args:
         # Change me!
         - REACT_APP_BACKEND_URL=${REACT_APP_BACKEND_URL}
